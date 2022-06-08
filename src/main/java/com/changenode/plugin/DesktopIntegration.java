@@ -82,7 +82,7 @@ public class DesktopIntegration implements Plugin {
 
     private void requestUserAttention() {
 
-        Task task = new Task<Void>() {
+        Task<Void> task = new Task<Void>() {
 
             @Override
             public Void call() {
