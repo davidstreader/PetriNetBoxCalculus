@@ -7,10 +7,16 @@ import javafx.scene.Scene;
 //import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Sphere;
 //import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -124,6 +130,14 @@ public class BaseApplication extends Application implements Log {
     @Override
     public void start(Stage stage) {
 
+        TabPane tabPane = new TabPane();
+
+        // Tab tab2 = new Tab("Cars"  , new Label("Show all cars available"));
+      //  tabPane.getTabs().add(tab2);
+       
+       // VBox vBox = new VBox(tabPane);
+        //Scene scene = new Scene(vBox);
+        
         BorderPane borderPane = new BorderPane();
 
         VBox topElements = new VBox();
@@ -131,7 +145,8 @@ public class BaseApplication extends Application implements Log {
         // MenuBar menuBar = new MenuBar();
         // topElements.getChildren().add(menuBar);
 
-        ToolBar toolbar = new ToolBar(); MenuBar menuBar = new MenuBar();
+        ToolBar toolbar = new ToolBar();
+         MenuBar menuBar = new MenuBar();
         topElements.getChildren().addAll(toolbar,menuBar);   
        
         //topElements.getChildren().add(menuBar);add(toolbar);
@@ -146,10 +161,23 @@ public class BaseApplication extends Application implements Log {
         borderPane.setTop(topElements);
         borderPane.setBottom(statusLabel);
         borderPane.setCenter(textArea);
-
-        Scene scene = new Scene(borderPane, 800, 600);
-
+        Pane  pane  = new Pane();
+        pane.getChildren().add(new Label("Hello Pane"));
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(pane);
+        Tab tab1 = new Tab("View Petri", scrollPane);      
+        tabPane.getTabs().add(tab1);
+        HBox hb = new HBox();
+        scrollPane.setContent(hb);
+        Sphere sphere = new Sphere(40);
+        hb.getChildren().add(sphere);
+        sphere.setTranslateX(200); 
+        sphere.setTranslateY(150); 
         stage.setTitle("I Found The Men Sir");
+        Tab tab3 = new Tab("Drop json" , borderPane);
+        tabPane.getTabs().add(tab3);
+        Scene scene = new Scene(tabPane, 800, 600);
+
         stage.setScene(scene);
 
         for (Plugin plugin : plugins) {
