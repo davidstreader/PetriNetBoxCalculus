@@ -2,10 +2,10 @@ package com.changenode;
 //import com.google.gson.Gson;
 public class arcP2T {
     public String name;
-    public Transition post;
+    public String post;
     public String guard;
-    public Place pre; 
-    public arcP2T(String n,  Place pr , String g, Transition po ) {
+    public String pre; 
+    public arcP2T(String n,  String pr , String g, String po ) {
         name = n;
         guard = g;
         pre = pr;

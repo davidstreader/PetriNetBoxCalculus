@@ -30,12 +30,11 @@ public class DesktopIntegration implements Plugin {
         if (!isTaskbarSupported())
             return null;
 
-        log.log("");
-        log.log("Desktop integration flags for this platform include:");
-
-        for (Feature feature : Feature.values()) {
-            log.log(" " + feature.name() + " " + getTaskbar().isSupported(feature));
-        }
+        // log.log("");
+        // log.log("Desktop integration flags for this platform include:");
+        // for (Feature feature : Feature.values()) {
+        //     log.log(" " + feature.name() + " " + getTaskbar().isSupported(feature));
+        // }
 
         if (getTaskbar().isSupported(Feature.ICON_IMAGE)) {
             defaultIcon = getTaskbar().getIconImage();
