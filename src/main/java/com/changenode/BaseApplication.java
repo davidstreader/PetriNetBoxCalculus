@@ -21,10 +21,7 @@ import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 
 import java.io.*;
-//import java.util.ArrayList;
-import java.util.TreeMap;
 
-import com.google.gson.Gson;
 //import com.google.gson.reflect.TypeToken;
 
 import static javax.swing.filechooser.FileSystemView.getFileSystemView;
@@ -71,54 +68,6 @@ public class BaseApplication extends Application implements Log {
 
         launch(args);
     }
-    public static void testPn() {
-        int[] ixs = new int[2];
-        ixs[0] = 12;
-        Place p1 = new Place("Pl1", ixs);
-        String ps = p1.PlacetoJson();
-        System.out.println(ps);
-    }
-    public static PetriNet mkNet() {
-        int[] ixs = new int[2];
-        ixs[0] = 12;
-        Place p1 = new Place("Pl1", ixs);
-        Place p2 = new Place("Pl2", ixs);
-        Transition t1 = new Transition("Tr1", "ping", TrType.active );
-        arcP2T a1 = new arcP2T("arc1",p1.name,"x< 0",t1.name);
-        arcT2P a2 = new arcT2P("arc2",t1.name," x = 2",p2.name);
-        p1.addarcP2T(a1);
-        p2.addarcT2P(a2);
-        t1.addarcP2T(a1);
-        t1.addarcT2P(a2);
-        TreeMap<String,String> eval = new TreeMap<String,String>();
-        eval.put("x", "3 +5");
-        TreeMap<String,Transition> trs = new TreeMap<String,Transition>(); trs.put(t1.name,t1);
-        TreeMap<String,Place> pls = new TreeMap<String,Place>(); pls.put(p1.name,p1);pls.put(p2.name,p2);
-        PetriNet pn = new PetriNet("FirstNet",ixs,eval);
-        pn.setTransitions(trs);
-        pn.setPlaces(pls);
-        pn.markPlace(p1);
-        pn.addarcP2T(a1); pn.addarcT2P(a2);
-        System.out.println(pn.toString()+"\n****");
-       
-
-
-        System.out.println(p1);
-        //String ps = p1.PlacetoJson();
-        System.out.println("**myString()**");
-        System.out.println(pn.myString());
-        System.out.println("**JSON**");
-        Gson g = new Gson();
-        String js =   g.toJson(pn);
-        System.out.println(js);
-        Place pGot = Place.getJson();
-        System.out.println("pGot "+pGot.myString());
-        Transition tGot = Transition.getJson();
-        System.out.println("tGot "+tGot.myString());
-        
-        return pn;
-    }
-   
    
 
     public void log(String s) {

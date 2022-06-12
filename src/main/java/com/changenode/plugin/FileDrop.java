@@ -5,7 +5,6 @@ import com.changenode.PetriNet;
 import com.changenode.Plugin;
 import com.changenode.ShortNet;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.MenuBar;
@@ -20,9 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.nio.file.Files;
-//import java.util.ArrayList;
-import java.util.Scanner;
+
 import java.util.TreeMap;
 
 public class FileDrop implements Plugin {
@@ -47,29 +44,13 @@ public class FileDrop implements Plugin {
             boolean success = false;
             if (db.hasFiles()) {
                 for (File file : db.getFiles()) {                                   
-                    try {
-                       String fileType = Files.probeContentType(file.toPath());
-                        if (fileType.endsWith("json")) {
-                            Scanner myReader = new Scanner(file);
-                          while (myReader.hasNextLine()) {
-                            String data = myReader.nextLine();
-                             log.log(data);
-                             PetriNet sn = getNet(data, log);
-                             log.log("net "+sn.myString());
-                          }
-                         myReader.close();                         
-                       } else {
-                        log.log(file.getAbsolutePath());  
-                       }
-                    } catch(Exception ex) {
-                    System.out.println("FileDrop Error "+ex);
-                    }             
+                 PetriNet pn = PetriNet.file2PetriNet(file, log).get() ;  
+                 System.out.println(pn.myString()   );     
                 }
                 success = true;
             }
             /* let the source know whether the information was successfully transferred and used */
             event.setDropCompleted(success);
-
             event.consume();
         });
     }
@@ -84,18 +65,7 @@ public class FileDrop implements Plugin {
         
         return gs;
     }
-    public  PetriNet getNet(String js, Log log) {
-        java.lang.reflect.Type PNType = new TypeToken<PetriNet>() {}.getType();
-       log.log("Starting getNet");
-        System.out.println("getJson Starting");
-        PetriNet result = null;
-        log.log("Starting getNet");
-        result = new Gson().fromJson(js, PNType);
-        log.log(result.myString());
-        log.log("getJson Ending");
-        System.out.println("getJson ENDing");
-        return result;
-    }
+    
     @Override
     public void setup(Stage stage, TextArea textArea, ToolBar toolBar, Log log, MenuBar menuBar) {
         log.log("Dragg JSON formatted Petri Nets to this Window");

@@ -1,3 +1,20 @@
+Two Tabs one to drag Jaso from Julia  and convert it into the java PetriNet object
+the other to View the Petri Net
+
+Next 
+1. Define java  View of PetriNet Object idealy edit guards and assignments and parse in Julia
+2. Spring embedder layout
+3. Extend Objects  with x,y,z locations + Net with w,h and change Julia
+4. Save and reload extended json
+5. In Julia Define Paralle composition 
+6. Link Z3 with Julia then 
+7.    Define variable expansion and java springs linking PNs
+8.    Define observable sematics
+9. Define Real time link between Julia and Java
+
+
+
+
 # Java + Maven + GitHub Actions = Native Desktop Apps
 
 [JavaFX](https://openjfx.io) or Swing + [jpackage](https://docs.oracle.com/en/java/javase/15/docs/specs/man/jpackage.html) +
